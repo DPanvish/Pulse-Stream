@@ -1,0 +1,33 @@
+<-- BACKEND -->
+
+1) Initialize the Backend folder "npm init -y"
+2) Install Production Dependencies
+   "npm install express mongoose dotenv cors socket.io multer fluent-ffmpeg jsonwebtoken bcryptjs helmet"
+   express: The web framework.
+   mongoose: For MongoDB database interaction.
+   socket.io: For real-time updates.
+   multer: For handling video file uploads.
+   fluent-ffmpeg: To interface with FFmpeg for video processing.
+   jsonwebtoken & bcryptjs: For authentication and password hashing.
+
+
+<-- FRONTEND -->
+
+1) Initialize React with Vite in Frontend folder "npm create vite@latest ./"
+2) Install Dependencies "npm install axios socket.io-client react-router-dom react-icons"
+   axios: For making HTTP requests to our backend.
+   socket.io-client: To listen for real-time events from the backend.
+   react-router-dom: For navigation (Login page, Dashboard, etc.).
+3) Install Tailwind CSS "npm install tailwindcss @tailwindcss/vite"
+4) Configure Vite vite.config.js
+   import { defineConfig } from 'vite'
+   import react from '@vitejs/plugin-react'
+   import tailwindcss from '@tailwindcss/vite' // Add this import
+
+   export default defineConfig({
+     plugins: [
+       react(),
+       tailwindcss(), // Add the plugin here
+     ],
+   })
+5) Update CSS Entry Point in index.css "@import "tailwindcss";
