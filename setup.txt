@@ -9,7 +9,7 @@
    multer: For handling video file uploads.
    fluent-ffmpeg: To interface with FFmpeg for video processing.
    jsonwebtoken & bcryptjs: For authentication and password hashing.
-
+3) Install Cloudinary Packages "npm install cloudinary multer-storage-cloudinary"
 
 <-- FRONTEND -->
 
