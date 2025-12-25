@@ -31,3 +31,4 @@
      ],
    })
 5) Update CSS Entry Point in index.css "@import "tailwindcss";
+6) Install React Icons "npm install react-icons"
