@@ -7,10 +7,8 @@ import multer from "multer";
 const upload = multer({ storage });
 const router = express.Router();
 
-router.route("/").get(protect, getVideos);
-
-router.route("/upload").post(protect, authorize("admin", "editor").upload.single("video"), uploadVideo);
-
-router.route("/:id").get(protect, getVideoById);
+router.get("/", protect, getVideos);
+router.post("/upload", protect, authorize("admin", "editor"), upload.single("video"), uploadVideo);
+router.get("/:id", protect, getVideoById);
 
 export default router;
