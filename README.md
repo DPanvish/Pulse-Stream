@@ -1,139 +1,54 @@
 # PulseStream - Video Upload & Streaming Application
 
-## 1. Project Overview
-PulseStream is a full-stack MERN application designed to handle video uploads, content sensitivity analysis, and seamless streaming. It features a robust backend that processes videos for safety (simulated AI analysis), real-time status updates via Socket.io, and role-based access control for Viewers and Editors.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=Cloudinary&logoColor=white)
+
+PulseStream is a full-stack MERN application designed for seamless video uploading, content analysis, and streaming. It features a robust backend that processes videos for safety, provides real-time status updates, and includes role-based access control.
+
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [System Architecture](#system-architecture)
+- [Installation Guide](#installation-guide)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Project Overview
+
+PulseStream is a comprehensive solution for video content management. The application allows users to upload videos, which are then processed and analyzed for content sensitivity. The frontend provides a user-friendly interface for managing and viewing videos, with real-time updates on the processing status.
 
 This project was built to satisfy the requirements of the "Pulse Assignment 2" specifications.
 
-## Project Structure
-```text
-pulse-stream/
-├── backend/                 # Server-Side Code
-│   ├── config/              # DB & Cloudinary Config
-│   ├── controllers/         # Logic (Auth, Video, Uploads)
-│   ├── middleware/          # Auth Protection & File Handling
-│   ├── models/              # Mongoose Schemas (User, Video)
-│   ├── routes/              # API Route Definitions
-│   ├── uploads/             # Temp storage for video processing
-│   ├── server.js            # Entry Point
-│   └── .env                 # Secrets (Not committed)
-│
-├── frontend/                # Client-Side Code
-│   ├── src/
-│   │   ├── components/      # Reusable UI (Navbar, Modals)
-│   │   ├── context/         # Auth State Management
-│   │   ├── pages/           # Views (Login, Dashboard)
-│   │   └── api.js           # Axios Configuration
-│   └── vite.config.js       # Build Config
-│
-└── README.md                # Documentation
----
+## Key Features
 
-## 2. Key Features
-* **Video Management:** Secure video upload using Cloudinary storage.
-* **Content Analysis:** Automated simulation of content sensitivity checks (Safe vs. Flagged).
-* **Real-Time Updates:** Live processing status updates on the dashboard using Socket.io.
-* **Role-Based Access Control (RBAC):**
-    * **Viewers:** Can watch videos.
-    * **Editors/Admins:** Can upload and delete videos.
-* **Streaming:** Integrated video player with support for MP4 streaming.
-* **Search & Filter:** Real-time filtering of video library.
+- **Video Management:** Secure video upload and storage using Cloudinary.
+- **Content Analysis:** Automated simulation of content sensitivity checks.
+- **Real-Time Updates:** Live processing status updates using Socket.io.
+- **Role-Based Access Control (RBAC):**
+    - **Viewers:** Can watch videos.
+    - **Editors/Admins:** Can upload and delete videos.
+- **Streaming:** Integrated video player for MP4 streaming.
+- **Search & Filter:** Real-time filtering of the video library.
 
----
+## Technology Stack
 
-## 3. Technology Stack
-* **Frontend:** React (Vite), Tailwind CSS, Axios.
-* **Backend:** Node.js, Express.js.
-* **Database:** MongoDB (Mongoose ODM).
-* **Real-Time:** Socket.io.
-* **Storage:** Cloudinary (Video hosting).
-* **Authentication:** JWT (JSON Web Tokens).
+- **Frontend:** React (Vite), Tailwind CSS, Axios
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (Mongoose)
+- **Real-Time Communication:** Socket.io
+- **Storage:** Cloudinary
+- **Authentication:** JWT (JSON Web Tokens)
 
----
+## System Architecture
 
-## 4. Installation & Setup Guide
+The application follows a monorepo-style structure with a clear separation of concerns between the frontend and backend.
 
-### Prerequisites
-* Node.js (v14 or higher)
-* MongoDB Atlas Account (or local MongoDB)
-* Cloudinary Account
-
-### Step 1: Clone the Repository
-```bash
-git clone <repository-url>
-cd pulse-stream
-```
-
-### Step 2: Backend Setup
-Navigate to the backend folder:
-
-```bash
-cd backend
-```
-Install dependencies:
-
-```bash
-npm install
-```
-Create a `.env` file in the backend folder and add your credentials:
-
-```
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key_12345
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
-Create the temporary uploads folder:
-
-```bash
-mkdir uploads
-```
-Start the Server:
-
-```bash
-npm run dev
-```
-
-### Step 3: Frontend Setup
-Open a new terminal and navigate to the frontend folder:
-
-```bash
-cd frontend
-```
-Install dependencies:
-
-```bash
-npm install
-```
-Start the React App:
-
-```bash
-npm run dev
-```
-Open your browser at http://localhost:5173.
-
----
-
-## 5. API Documentation
-### Authentication
-| Method | Endpoint | Description | Access |
-| --- | --- | --- | --- |
-| POST | /api/users/register | Register a new user | Public |
-| POST | /api/users/login | Login user & get JWT | Public |
-
-### Video Management
-| Method | Endpoint | Description | Access |
-| --- | --- | --- | --- |
-| GET | /api/videos | Get all videos | Private |
-| GET | /api/videos/:id | Get single video details | Private |
-| POST | /api/videos/upload | Upload video file | Editor/Admin |
-| DELETE | /api/videos/:id | Delete video | Owner/Admin |
-
----
-
-## 6. Architecture & Design Decisions
 ### System Architecture Diagram
 ```mermaid
 graph TD
@@ -149,15 +64,79 @@ graph TD
     
     AI -->|Update Status| Backend
     Backend -->|Real-Time Event| Frontend
+```
 
-### Architecture Overview
-The application follows a Monorepo-style structure with distinct separation of concerns:
+### Design Decisions
 
-* **Client-Side (Frontend):** Handles UI, authentication state (Context API), and real-time event listening.
-* **Server-Side (Backend):** RESTful API services handling business logic, database interactions, and file processing.
-* **Event Loop:** A processing simulation runs asynchronously to mimic AI content moderation without blocking the main thread.
+- **Simulated AI:** To avoid costs associated with actual video content moderation APIs, the AI analysis is simulated using a `setTimeout` function that randomly assigns a "Safe" or "Flagged" status.
+- **Stateless Storage:** Cloudinary is used for video storage to ensure the application is stateless and easily deployable on cloud platforms.
+- **Security:** Passwords are hashed using `bcryptjs`, and API routes are protected using a custom middleware that verifies JWT Bearer tokens.
 
-### Design Decisions & Assumptions
-* **Simulated AI:** Actual video content moderation APIs (like AWS Rekognition) are expensive. We simulated this process using a `setTimeout` function that randomly assigns "Safe" or "Flagged" status after 10 seconds.
-* **Storage Strategy:** We use Cloudinary for video storage instead of local disk storage to ensure the application is stateless and deployable on cloud platforms like Render/Vercel.
-* **Security:** Passwords are hashed using `bcryptjs`. API routes are protected via a custom middleware that verifies the JWT Bearer token.
+## Installation Guide
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB Atlas Account (or a local MongoDB instance)
+- Cloudinary Account
+
+### Step 1: Clone the Repository
+```bash
+git clone <repository-url>
+cd pulse-stream
+```
+
+### Step 2: Backend Setup
+```bash
+cd backend
+npm install
+```
+Create a `.env` file in the `backend` folder with the following credentials:
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key_12345
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+Create the temporary `uploads` folder and start the server:
+```bash
+mkdir uploads
+npm run dev
+```
+
+### Step 3: Frontend Setup
+In a new terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open your browser at `http://localhost:5173`.
+
+## API Documentation
+
+### Authentication
+
+| Method | Endpoint              | Description           | Access |
+| ------ | --------------------- | --------------------- | ------ |
+| POST   | /api/users/register   | Register a new user   | Public |
+| POST   | /api/users/login      | Login user & get JWT  | Public |
+
+### Video Management
+
+| Method | Endpoint              | Description               | Access        |
+| ------ | --------------------- | ------------------------- | ------------- |
+| GET    | /api/videos           | Get all videos            | Private       |
+| GET    | /api/videos/:id       | Get single video details  | Private       |
+| POST   | /api/videos/upload    | Upload a video file       | Editor/Admin  |
+| DELETE | /api/videos/:id       | Delete a video            | Owner/Admin   |
+
+## Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
