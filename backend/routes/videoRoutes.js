@@ -1,5 +1,5 @@
 import express from "express";
-import { uploadVideo, getVideos, getVideoById } from "../controllers/videoController.js";
+import { uploadVideo, getVideos, getVideoById, deleteVideo } from "../controllers/videoController.js";
 import { protect, authorize } from "../middleware/authMiddleware.js";
 import multer from "multer";
 
@@ -17,5 +17,7 @@ router.post(
 );
 
 router.get("/:id", protect, getVideoById);
+router.delete("/:id", protect, deleteVideo);
+
 
 export default router;

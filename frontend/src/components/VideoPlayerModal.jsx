@@ -23,7 +23,7 @@ const VideoPlayerModal = ({ video, onClose }) => {
     }
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
       
             {/* Close Button (Top Right) */}
             <button 

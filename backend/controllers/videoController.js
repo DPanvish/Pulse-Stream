@@ -103,3 +103,27 @@ export const getVideoById = async(req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 }
+
+// @desc    Delete a video
+// @route   DELETE /api/videos/:id
+// @access  Private (Owner or Admin)
+export const deleteVideo = async(req, res) => {
+    try {
+        const video = await Video.findById(req.params.id);
+
+        if(!video){
+            return res.status(404).json({message: "Video not found"});
+        }
+
+        if(video.uploadedBy.toString() !== req.user._id.toString() && req.user.role !== "admin"){
+            return res.status(403).json({message: "Not authorized to delete this video"});
+        }
+
+        await video.deleteOne();
+
+        res.json({message: "Video deleted successfully"});
+    }catch(err){
+        console.error("Delete Error:", err);
+        res.status(500).json({message: "Server Error"});
+    }
+}
