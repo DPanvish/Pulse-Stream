@@ -17,14 +17,24 @@ const PORT = process.env.PORT || 5000;
 
 // Socket.io Setup
 const io = new Server(httpServer, {
-    cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST"],
-    }
+  pingTimeout: 60000,
+  cors: {
+    origin: [
+      "http://localhost:5173",              
+      "https://pulse-stream.vercel.app"     
+    ],
+    credentials: true,
+  },
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://pulse-stream.vercel.app"
+    ],
+    credentials: true,
+}));
 app.use(express.json());
 // Inject Socket.io into every request (Middleware)
 // This allows us to use 'req.io' in our controllers!
