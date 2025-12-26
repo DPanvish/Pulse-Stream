@@ -1,6 +1,6 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import { FiUploadCloud, FiX, FiCheck, FiVideo } from "react-icons/fi";
-import api from "../api";
+import api from "../api/api";
 import AuthContext from "../context/AuthContext";
 
 const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {

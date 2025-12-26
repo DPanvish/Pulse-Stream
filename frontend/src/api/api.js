@@ -6,9 +6,10 @@ const api = axios.create({
 
 // Interceptor: Automatically add the Token to headers if it exists
 api.interceptors.request.use((config) => {
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const user = localStorage.getItem("userInfo");
 
-    if(user && user.token){
+    if(user){
+        const {token} = JSON.parse(user);
         config.headers.Authorization = `Bearer ${user.token}`;
     }
 
