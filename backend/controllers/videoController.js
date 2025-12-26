@@ -1,5 +1,7 @@
+// backend/controllers/videoController.js
 import Video from "../models/Video.js";
-
+import cloudinary from "../config/cloudinary.js"; 
+import fs from 'fs'; 
 const simulateProcessing = async(videoId, io) => {
     console.log(`Starting mock processing for video ${videoId}...`);
 
@@ -25,7 +27,7 @@ const simulateProcessing = async(videoId, io) => {
         }catch(err){
             console.error("Processing error:", err);
         }
-    }, 10000);
+    }, 10000); // 10 seconds delay
 };
 
 // @desc    Upload a video
@@ -37,15 +39,28 @@ export const uploadVideo = async(req, res) => {
             return res.status(400).json({ message: "No file uploaded" });
         }
 
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            resource_type: 'video',
+            folder: 'pulse_stream_videos',
+        });
+
+        try {
+            fs.unlinkSync(req.file.path);
+        } catch (error) {
+            console.error("Failed to delete local file:", error);
+        }
+
         const video = new Video({
             title: req.body.title || req.file.originalname,
             description: req.body.description,
-            filePath: req.file.path,
+            filePath: result.secure_url,     
+            fileType: req.file.mimetype,     
+            filename: req.file.originalname, 
             fileSize: req.file.size,
             uploadedBy: req.user._id,
             processingStatus: "processing",
             sensitivityStatus: "pending",
-        })
+        });
 
         const createdVideo = await video.save();
 
@@ -53,8 +68,11 @@ export const uploadVideo = async(req, res) => {
 
         res.status(201).json(createdVideo);
     }catch(err){
-        console.error(err);
-        res.status(500).json({ message: "Server error" });
+        console.error("Upload Error:", err);
+        if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+        res.status(500).json({ message: "Server upload error: " + err.message });
     }
 }
 
@@ -74,12 +92,14 @@ export const getVideos = async(req, res) => {
 // @route   GET /api/videos/:id
 // @access  Private
 export const getVideoById = async(req, res) => {
-    const video = await Video.findById(req.params.id);
-
-    if(video){
-        res.json(video);
-    }else{
-        res.status(404).json({ message: "Video not found" });
-    
+    try {
+        const video = await Video.findById(req.params.id);
+        if(video){
+            res.json(video);
+        }else{
+            res.status(404).json({ message: "Video not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
     }
 }

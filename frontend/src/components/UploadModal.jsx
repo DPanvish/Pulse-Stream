@@ -81,7 +81,7 @@ const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
         }catch(err){
             console.error(err);
             setUploading(false);
-            alert("Upload failed: " + (error.response?.data?.message || err.message));
+            alert("Upload failed: " + (err.response?.data?.message || err.message));
         }
     };
 

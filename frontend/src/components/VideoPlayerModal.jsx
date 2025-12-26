@@ -42,8 +42,10 @@ const VideoPlayerModal = ({ video, onClose }) => {
                         className="w-full h-full object-contain"
                         controls 
                         autoPlay
-                        controlsList="nodownload" // Basic protection
-                    />
+                        playsInline
+                    >
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
 
                 {/* Video Info */}

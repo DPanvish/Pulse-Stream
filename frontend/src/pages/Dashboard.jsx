@@ -81,22 +81,30 @@ const Dashboard = () => {
                                     >
                                         
                                         {/* Thumbnail / Video Placeholder */}
-                                        <div className="h-48 bg-slate-800 relative flex items-center justify-center overflow-hidden">
-                                
-                                            {/* If processed, show Play button */}
+                                        <div 
+                                            onClick={() => {
+                                                console.log("Opening video:", video.title); // Debug log
+                                                setSelectedVideo(video);
+                                            }}
+                                            className="h-48 bg-slate-800 relative flex items-center justify-center overflow-hidden cursor-pointer"
+                                            >
                                             {video.processingStatus === 'completed' ? (
+                                                <>
+                                                {/* Background Overlay */}
                                                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex items-center justify-center">
-                                                    <button className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                                                    {/* Play Button Icon */}
+                                                    <button className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-blue-600 hover:scale-110 transition-all shadow-lg">
                                                         <FiPlay className="ml-1 text-white" size={24} />
                                                     </button>
                                                 </div>
+                                                </>
                                             ) : (
                                                 <div className="flex flex-col items-center text-slate-500">
                                                     <FiLoader className="animate-spin mb-2" />
-                                                    <span className="text-xs">Processing Preview...</span>
+                                                    <span className="text-xs">Processing...</span>
                                                 </div>
                                             )}
-                                        </div>
+                                            </div>
 
                                         {/* Video Info */}
                                         <div className="p-5">
