@@ -52,18 +52,17 @@ The application follows a monorepo-style structure with a clear separation of co
 ### System Architecture Diagram
 ```mermaid
 graph TD
-    User[End User] -->|HTTPS| Frontend[React Frontend (Vite)]
-    Frontend -->|REST API| Backend[Node/Express Server]
-    Frontend -->|Socket.io| Backend
-    
+    User["End User"] -->|"HTTPS"| FrontendClient;
+    FrontendClient["React Frontend (Vite)"] -->|"REST API / Socket.io"| BackendServer;
+
     subgraph "Backend Services"
-        Backend -->|Auth/Data| DB[(MongoDB Atlas)]
-        Backend -->|File Upload| Cloud[Cloudinary Storage]
-        Backend -->|Background Process| AI[Simulated AI Analysis]
+        BackendServer["Node/Express Server"] -->|"Auth/Data"| DB[(MongoDB Atlas)];
+        BackendServer -->|"File Upload"| Cloud["Cloudinary Storage"];
+        BackendServer -->|"Background Process"| AI["Simulated AI Analysis"];
     end
-    
-    AI -->|Update Status| Backend
-    Backend -->|Real-Time Event| Frontend
+
+    AI -->|"Update Status"| BackendServer;
+    BackendServer -->|"Real-Time Event"| FrontendClient;
 ```
 
 ### Design Decisions
