@@ -23,8 +23,6 @@ PulseStream is a full-stack MERN application designed for seamless video uploadi
 
 PulseStream is a comprehensive solution for video content management. The application allows users to upload videos, which are then processed and analyzed for content sensitivity. The frontend provides a user-friendly interface for managing and viewing videos, with real-time updates on the processing status.
 
-This project was built to satisfy the requirements of the "Pulse Assignment 2" specifications.
-
 ## Key Features
 
 - **Video Management:** Secure video upload and storage using Cloudinary.
